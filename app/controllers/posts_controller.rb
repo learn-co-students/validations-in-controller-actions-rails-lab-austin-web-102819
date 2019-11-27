@@ -8,9 +8,18 @@ class PostsController < ApplicationController
   end
 
   def update
+    # Update the current post object with the post_params
     @post.update(post_params)
-
-    redirect_to post_path(@post)
+    # If the post is valid, 
+    if @post.valid?
+      #Update this specific Post object with post_params
+      @post.update(post_params)
+      # Redirect to the @post show page. 
+      redirect_to @post
+    else
+      # Render the Edit from again
+      render :edit
+    end
   end
 
   private
